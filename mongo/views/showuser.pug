@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container
+    h1= user.name
+    - var actionUrl = '/users/update/' + user._id;
+    form.form(action=actionUrl, method="post")
+      .form-group 
+        label Név 
+        input(type="text", name="name", class="form-control", value=user.name)
+      .form-group 
+        label Kor 
+        input(type="number", name="age", class="form-control", value=user.age)
+      .form-group 
+        label Email 
+        input(type="email", name="email", class="form-control", value=user.email)
+      .form-group 
+        label Született 
+        - var bd = new Date(user.bd);
+        - var bdArray = [bd.getFullYear(), bd.getMonth()+1, bd.getDate()];
+        - bdArray[1] = bdArray[1] < 10 ? "0"+bdArray[1] : bdArray[1];
+        - bdArray[2] = bdArray[2] < 10 ? "0"+bdArray[2] : bdArray[2];
+        - var bdString = bdArray.join('-');
+        input(type="date", name="bd", class="form-control", value=bdString)
+      .form-group 
+        button.btn.btn-success(type="submit") Mentés
